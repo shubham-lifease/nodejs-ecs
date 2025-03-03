@@ -8,7 +8,7 @@ app.use("/health", (req, res) => {
 
 app.get("/user", async (req, res) => {
   res.send({
-    name: "John Doe",
+    name: "Jane Doe",
     age: 25,
   });
 });
