@@ -39,7 +39,7 @@ jobs:
           echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
 
           # Construct the full image path and echo it
-          FULL_IMAGE_TAG="${{ steps.login-ecr.outputs.registry }}/nest-backend:$IMAGE_TAG"
+          FULL_IMAGE_TAG="${{ steps.login-ecr.outputs.registry }}/nodejs-ecs:$IMAGE_TAG"
           echo "FULL_IMAGE_TAG=$FULL_IMAGE_TAG" >> $GITHUB_ENV
 
           echo "✅ Final Image Tag: $FULL_IMAGE_TAG"
@@ -47,12 +47,12 @@ jobs:
       - name: Build and Push Docker Image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: nest-backend
+          ECR_REPOSITORY: nodejs-ecs
         run: |
           echo "🔹 ECR Registry: $ECR_REGISTRY"
           echo "🔹 Building Docker Image with tag: $IMAGE_TAG"
 
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./docker/Dockerfile .
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
 
           echo "🔹 Full Image Tag: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
           echo "🔹 Pushing Docker Image to ECR..."
