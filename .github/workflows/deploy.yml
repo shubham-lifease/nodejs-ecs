@@ -59,10 +59,4 @@ jobs:
 
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
 
-          echo "✅ Successfully pushed image: $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG"
-
-      - name: Deploy to AWS ECS
-        run: |
-          echo "🔹 Deploying image to ECS service..."
-          aws ecs update-service --cluster ${{ secrets.ECS_CLUSTER_NAME }} --service ${{ secrets.ECS_SERVICE_NAME }} --force-new-deployment
-          echo "✅ ECS service updated successfully!"
+          echo "✅ Successfully pushed image with tag $IMAGE_TAG"
